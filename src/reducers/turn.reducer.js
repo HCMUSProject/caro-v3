@@ -1,9 +1,9 @@
-import { SET_NEXT_TURN } from '../actions';
+import { SET_TURN } from '../actions';
 
 function xIsNext(state = true, action) {
   switch (action.type) {
-    case SET_NEXT_TURN:
-      return !state;
+    case SET_TURN:
+      return action.turn;
     default:
       return state;
   }

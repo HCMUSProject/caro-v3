@@ -11,7 +11,11 @@ const initialState = {
 function history(state = initialState, action) {
   switch (action.type) {
     case ADD_HISTORY_ITEM:
-      return { ...state, list: state.list.concat([action.historyItem]) };
+      // them history tai vi tri step
+      return {
+        ...state, list: state.list.slice(0, state.step + 1)
+          .concat([action.historyItem])
+      };
     case SET_STEP:
       return { ...state, step: action.step };
     default:

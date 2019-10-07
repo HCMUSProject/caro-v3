@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import Game from '../components/Game';
-import { setHistoryStep, setNextTurn, addHistoryItem, setWinner } from '../actions';
+import { setHistoryStep, setTurn, addHistoryItem, setWinner } from '../actions';
 
 const mapStateToProps = state => ({
   board: state.board,
@@ -12,7 +12,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   setStep: step => dispatch(setHistoryStep(step)),
-  setNextTurn: () => dispatch(setNextTurn()),
+  setTurn: turn => dispatch(setTurn(turn)),
   addHistoryItem: historyItem => dispatch(addHistoryItem(historyItem)),
   setWinner: winner => dispatch(setWinner(winner))
 })
