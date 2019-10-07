@@ -1,7 +1,6 @@
 import React from 'react';
 
 const Cell = ({ row, col, val, onClick, winner }) => {
-
   let player = '';
   if (val !== null) {
     player = val === 1 ? ' X' : ' O';

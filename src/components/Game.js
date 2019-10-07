@@ -1,21 +1,22 @@
 import React, { useState } from 'react';
 import { Card, Button, Confirm } from 'semantic-ui-react';
 import Board from './Board';
+import History from './History';
 
-
-const Game = (
-  { xIsNext,
-    winner,
-    history,
-    setStep,
-    setTurn,
-    addHistoryItem,
-    setWinner,
-    size = 20,
-    numToWin = 5 }
-) => {
-
-  const [open, openComfirm] = useState(false);
+const Game = ({
+  xIsNext,
+  winner,
+  history,
+  setStep,
+  setTurn,
+  addHistoryItem,
+  setWinner,
+  emptyHistory,
+  size = 20,
+  numToWin = 5,
+}) => {
+  const [open, setOpen] = useState(false);
+  const [sortASC, setSort] = useState(true);
 
   const boardDisplay = [...history.list[history.step].board];
 
@@ -272,9 +273,9 @@ const Game = (
     let status = '';
     if (winner !== null) {
       strPlayer = winner === 1 ? 'X' : 'O';
-      status = 'Winner'
+      status = 'Winner';
     } else {
-      status = 'Player'
+      status = 'Player';
       if (isFull(boardDisplay)) {
         strPlayer = 'DRAW';
       } else {
@@ -295,45 +296,41 @@ const Game = (
     const { list, step } = history;
     const currentHistory = list.slice(0, step + 1);
 
-    console.log(currentHistory);
-
     // clone 2d array
-    const currentBoard = currentHistory[currentHistory.length - 1]
-      .board.map(arr => [...arr]);
+    const currentBoard = currentHistory[currentHistory.length - 1].board.map(
+      arr => [...arr],
+    );
 
     const player = xIsNext ? 1 : 0;
     if (winner !== null || currentBoard[row][col] !== null) return;
     currentBoard[row][col] = player;
     const result = isTerminated(currentBoard, row, col);
 
-
     addHistoryItem({
       board: currentBoard,
-      lastPosition: { row, col },
-      winner: result.hasWinner ? player : null
+      lastPosition: { x: row, y: col },
+      winner: result.hasWinner ? player : null,
+      id: step + 1,
     });
 
     setTurn(!xIsNext);
     setStep(currentHistory.length);
     setWinner(result.hasWinner ? player : null);
-  }
+  };
 
-  // const jumpTo = newStep => {
-  //   setStep(newStep);
-  //   setTurn(history.step % 2 === 0);
-  // }
-  const toggleOpen = () => {
-    openComfirm(!open);
-  }
+  const jumpTo = newStep => {
+    const { list } = history;
+    setStep(newStep);
+    setTurn(newStep % 2 === 0);
+    setWinner(list[newStep].winner);
+  };
 
   const resetGame = () => {
     setTurn(true);
     setWinner(null);
-    setStep(0);
-    toggleOpen();
-  }
-
-
+    emptyHistory();
+    setOpen(false);
+  };
 
   return (
     <div className='game-wrapper'>
@@ -343,9 +340,9 @@ const Game = (
           <Card.Description>
             <p>{showPlayer()}</p>
 
-            <Button size='small' onClick={toggleOpen}>
+            <Button size='small' onClick={() => setOpen(true)}>
               Reset game
-              </Button>
+            </Button>
           </Card.Description>
         </Card.Content>
       </Card>
@@ -358,20 +355,20 @@ const Game = (
         winner={winner}
       />
 
-      {/* <History
-        history={history}
+      <History
+        history={history.list}
         sort={sortASC}
-        toggleSort={this.toggleSort}
-        jumpTo={this.jumpTo}
-        selected={stepNumber}
-      /> */}
+        toggleSort={() => setSort(!sortASC)}
+        jumpTo={jumpTo}
+        selected={history.step}
+      />
 
       <Confirm
         open={open}
         size='mini'
         header='Reset game'
         content='Do you want to reset this game?'
-        onCancel={toggleOpen}
+        onCancel={() => setOpen(false)}
         onConfirm={resetGame}
       />
     </div>

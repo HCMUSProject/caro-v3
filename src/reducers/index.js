@@ -6,5 +6,5 @@ import history from './history.reducer';
 export default combineReducers({
   xIsNext: turn,
   winner,
-  history
-})
+  history,
+});

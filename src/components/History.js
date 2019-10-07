@@ -6,12 +6,15 @@ const History = ({ history, jumpTo, toggleSort, selected, sort }) => {
     if (!history) return <></>;
 
     // default : sort = true
-    history.sort((p1, p2) => {
+
+    // clone to new history
+    let his = [...history];
+    his = his.sort((p1, p2) => {
       const comp = p1.id <= p2.id;
       return comp === sort ? -1 : 1;
     });
 
-    return history.map(step => {
+    return his.map(step => {
       const { lastPosition, id } = step;
       const desc = id
         ? `Move to #${id}. Position [${lastPosition.x},${lastPosition.y}]`
