@@ -41,6 +41,19 @@
   margin: 0 0 7px;
 }
 
+#board {
+  position: relative;
+}
+
+#board .draw-lines {
+  position: absolute;
+  top: 0;
+  width: 100%;
+  left: 0;
+  height: 100%;
+  pointer-events: none;
+}
+
 .board-row {
   display: flex;
   font-size: 22px;
@@ -159,4 +172,13 @@ button.board-cell {
   .board-cell {
     font-size: 14px;
   }
+}
+
+.line.X {
+  stroke: #eb4d4b;
+  stroke-width: 3px;
+}
+.line.O {
+  stroke: #4834d4;
+  stroke-width: 3px;
 }

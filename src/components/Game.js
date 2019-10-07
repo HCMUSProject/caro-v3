@@ -19,9 +19,10 @@ const Game = ({
   const [sortASC, setSort] = useState(true);
 
   const boardDisplay = [...history.list[history.step].board];
+  const listPointsDisplay = [...history.list[history.step].listPoints];
 
   const checkingHorizontal = (board, row, col) => {
-    const points = [];
+    let points = [];
 
     let isBlockOutAbove = false;
     let isBlockOutBelow = false;
@@ -57,6 +58,15 @@ const Game = ({
     }
 
     if (count >= numToWin) {
+      // sort
+      points = points.sort((p1, p2) => {
+        return (p1.row + 1) * size + p1.col <= (p2.row + 1) * size + p2.col
+          ? -1
+          : 1;
+      });
+
+      points.splice(1, points.length - 2);
+
       if (count > numToWin) {
         return {
           hasWinner: true,
@@ -75,7 +85,7 @@ const Game = ({
   };
 
   const checkingVertical = (board, row, col) => {
-    const points = [];
+    let points = [];
     let isBlockOutAbove = false;
     let isBlockOutBelow = false;
 
@@ -110,6 +120,15 @@ const Game = ({
     }
 
     if (count >= numToWin) {
+      // sort
+      points = points.sort((p1, p2) => {
+        return (p1.row + 1) * size + p1.col <= (p2.row + 1) * size + p2.col
+          ? -1
+          : 1;
+      });
+
+      points.splice(1, points.length - 2);
+
       if (count > numToWin) {
         return {
           hasWinner: true,
@@ -128,7 +147,7 @@ const Game = ({
   };
 
   const checkingMainDiagonal = (board, row, col) => {
-    const points = [];
+    let points = [];
 
     let isBlockOutAbove = false;
     let isBlockOutBelow = false;
@@ -164,6 +183,15 @@ const Game = ({
     }
 
     if (count >= numToWin) {
+      // sort
+      points = points.sort((p1, p2) => {
+        return (p1.row + 1) * size + p1.col <= (p2.row + 1) * size + p2.col
+          ? -1
+          : 1;
+      });
+
+      points.splice(1, points.length - 2);
+
       if (count > numToWin) {
         return {
           hasWinner: true,
@@ -182,7 +210,7 @@ const Game = ({
   };
 
   const checkingSubDiagonal = (board, row, col) => {
-    const points = [];
+    let points = [];
 
     let isBlockOutAbove = false;
     let isBlockOutBelow = false;
@@ -218,6 +246,15 @@ const Game = ({
     }
 
     if (count >= numToWin) {
+      // sort
+      points = points.sort((p1, p2) => {
+        return (p1.row + 1) * size + p1.col <= (p2.row + 1) * size + p2.col
+          ? -1
+          : 1;
+      });
+
+      points.splice(1, points.length - 2);
+
       if (count > numToWin) {
         return {
           hasWinner: true,
@@ -241,23 +278,16 @@ const Game = ({
     const retM = checkingMainDiagonal(board, row, col);
     const retS = checkingSubDiagonal(board, row, col);
 
-    const desPoints = retH.points.concat(retV.points, retM.points, retS.points);
-
-    for (let i = 0; i < desPoints.length - 1; i += 1) {
-      for (let j = i + 1; j < desPoints.length; j += 1) {
-        if (
-          desPoints[i].row === desPoints[j].row &&
-          desPoints[i].col === desPoints[j].col
-        ) {
-          desPoints.splice(i, 1);
-        }
-      }
-    }
+    const listPoints = [];
+    if (retH.points.length === 2) listPoints.push(retH.points);
+    if (retV.points.length === 2) listPoints.push(retV.points);
+    if (retM.points.length === 2) listPoints.push(retM.points);
+    if (retS.points.length === 2) listPoints.push(retS.points);
 
     const ret = {
       hasWinner:
         retH.hasWinner || retV.hasWinner || retM.hasWinner || retS.hasWinner,
-      points: desPoints,
+      listPoints,
     };
     return ret;
   };
@@ -311,6 +341,7 @@ const Game = ({
       lastPosition: { x: row, y: col },
       winner: result.hasWinner ? player : null,
       id: step + 1,
+      listPoints: result.listPoints,
     });
 
     setTurn(!xIsNext);
@@ -326,9 +357,9 @@ const Game = ({
   };
 
   const resetGame = () => {
+    emptyHistory();
     setTurn(true);
     setWinner(null);
-    emptyHistory();
     setOpen(false);
   };
 
@@ -348,7 +379,7 @@ const Game = ({
       </Card>
 
       <Board
-        // points={points}
+        listPoints={listPointsDisplay}
         board={boardDisplay}
         xIsNext={xIsNext}
         onClick={handleClick}

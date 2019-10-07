@@ -7,6 +7,7 @@ const initialState = {
       lastPosition: null,
       id: 0,
       winner: null,
+      listPoints: [],
     },
   ],
   step: 0,

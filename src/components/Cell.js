@@ -13,6 +13,7 @@ const Cell = ({ row, col, val, onClick, winner }) => {
   }
   return (
     <button
+      id={`cell-${row}-${col}`}
       type='button'
       className={`board-cell player${player + notClickable}`}
       onClick={() => onClick(row, col)}
