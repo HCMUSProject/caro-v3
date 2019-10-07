@@ -1,23 +1,24 @@
 import React from 'react';
 
-const Cell = ({ row, col, val, onClick, winner, isWinningCell }) => {
-  let notClickable = ' not-clickable';
+const Cell = ({ row, col, val, onClick, winner }) => {
 
-  if (!winner && !val) {
-    notClickable = '';
+  let player = '';
+  if (val !== null) {
+    player = val === 1 ? ' X' : ' O';
   }
 
-  const hasPlayer = val ? ` player ${val}` : '';
+  let notClickable = ' not-clickable';
 
-  const winningCellClass = isWinningCell ? ' winning-cell' : '';
-
+  if (!winner && val === null) {
+    notClickable = '';
+  }
   return (
     <button
       type='button'
-      className={`board-cell${hasPlayer + notClickable + winningCellClass}`}
+      className={`board-cell player${player + notClickable}`}
       onClick={() => onClick(row, col)}
     >
-      {val}
+      {player}
     </button>
   );
 };

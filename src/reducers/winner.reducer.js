@@ -1,6 +1,6 @@
 import { SET_WINNER } from '../actions';
 
-function winner(state = false, action) {
+function winner(state = null, action) {
   switch (action.type) {
     case SET_WINNER:
       return action.winner;

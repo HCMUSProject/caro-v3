@@ -1,15 +1,26 @@
-export const SET_TURN_X = 'SET_TURN_X';
-export const SET_BOARD = 'SET_BOARD';
+export const MARK = 'MARK';
+export const SET_NEXT_TURN = 'SET_NEXT_TURN';
 export const SET_WINNER = 'SET_WINNER';
+export const ADD_HISTORY_ITEM = 'ADD_HISTORY_ITEM';
+export const SET_STEP = 'SET_STEP';
 
-export function setTurnX(xIsNext) {
-  return { type: SET_TURN_X, xIsNext };
+
+export function mark({ row, col, player }) {
+  return { type: MARK, row, col, player }
 }
 
-export function setBoard(board) {
-  return { type: SET_BOARD, board }
+export function setNextTurn() {
+  return { type: SET_NEXT_TURN };
 }
 
 export function setWinner(winner) {
   return { type: SET_WINNER, winner };
+}
+
+export function addHistoryItem(historyItem) {
+  return { type: ADD_HISTORY_ITEM, historyItem };
+}
+
+export function setHistoryStep(step) {
+  return { type: SET_STEP, step };
 }
