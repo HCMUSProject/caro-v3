@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "45fa1746bd083f49bdf41c2ea58c7785",
+    "revision": "ab6ffa13b95d7b8b090897bd9781c502",
     "url": "/caro-v2/index.html"
   },
   {
@@ -8,7 +8,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/caro-v2/static/css/2.e85ce12d.chunk.css"
   },
   {
-    "revision": "87d0112c483280180c6e",
+    "revision": "b930e973c958fd3c8530",
     "url": "/caro-v2/static/css/main.33b19c07.chunk.css"
   },
   {
@@ -16,8 +16,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/caro-v2/static/js/2.a87d97a5.chunk.js"
   },
   {
-    "revision": "87d0112c483280180c6e",
-    "url": "/caro-v2/static/js/main.1787178c.chunk.js"
+    "revision": "b930e973c958fd3c8530",
+    "url": "/caro-v2/static/js/main.3c57d598.chunk.js"
   },
   {
     "revision": "a0da98d3940290f858c8",
