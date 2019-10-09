@@ -367,7 +367,7 @@ const Game = ({
     <div className='game-wrapper'>
       <Card className='game-info'>
         <Card.Content>
-          <Card.Header as='h1'>Caro Vietnam - v2</Card.Header>
+          <Card.Header as='h1'>Caro Vietnam - v3</Card.Header>
           <Card.Description>
             <p>{showPlayer()}</p>
 
